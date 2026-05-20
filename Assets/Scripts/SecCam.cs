@@ -10,7 +10,7 @@ public class SecurityCamera : MonoBehaviour
 
         timeInside += Time.deltaTime;
 
-        if (timeInside >= 0.5f)
+        if (timeInside >= 0.1f)
         {
             Destroy(other.gameObject);
         }
