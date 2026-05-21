@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
+        DirectionalValue = horizontalInput;
 
         if (Mathf.Abs(DirectionalValue) == 1)
         {

@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class SecurityCamera : MonoBehaviour
+public class HackableObject : MonoBehaviour
 {
     private float timeInside = 0f;
+
 
     private void OnTriggerStay2D(Collider2D other)
     {
