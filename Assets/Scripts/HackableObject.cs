@@ -3,7 +3,7 @@ using UnityEngine;
 public class HackableObject : MonoBehaviour
 {
     private float timeInside = 0f;
-
+    public int HackLevel;
 
     private void OnTriggerStay2D(Collider2D other)
     {

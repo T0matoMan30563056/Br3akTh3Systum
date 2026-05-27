@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float DirectionalValue;
     public float StartDirection = 1;
     public static PlayerMovement instance;
+    public bool canMove = true;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,12 +24,15 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        DirectionalValue = horizontalInput;
-
-        if (Mathf.Abs(DirectionalValue) == 1)
+        if (canMove == true)
         {
-            StartDirection = DirectionalValue;
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            DirectionalValue = horizontalInput;
+
+            if (Mathf.Abs(DirectionalValue) == 1)
+            {
+                StartDirection = DirectionalValue;
+            }
         }
     }
 

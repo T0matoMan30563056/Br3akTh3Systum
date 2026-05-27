@@ -1,14 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class HackProjectile : MonoBehaviour
 {
     public float InitialBulletSpeed = 30f;
-    public float HomingSpeed = 2f;
     private Rigidbody2D rb;
     public float DirectionalValue;
-    [SerializeField] private GameObject HackPanel; 
 
     private void Start()
     {
@@ -21,9 +17,8 @@ public class HackProjectile : MonoBehaviour
     {
         if (other.CompareTag("Hackable"))
         {
-            UIcontroller.instance.MinigameStart(gameObject);
+            UIcontroller.instance.MinigameStart(other.gameObject);
             Destroy(gameObject);
-
         }
     }
 }
