@@ -20,49 +20,78 @@ public class UIcontroller : MonoBehaviour
 
     public void MinigameStart(GameObject target)
     {
-        currentTarget = target;
-        lvl = currentTarget.GetComponent<HackableObject>().HackLevel;
+        HackableObject hackable = target.GetComponentInParent<HackableObject>();
+
+        if (hackable == null)
+        {
+            Debug.LogError("No HackableObject found on " + target.name);
+            return;
+        }
+
+        currentTarget = hackable.gameObject;
+        lvl = hackable.HackLevel;
         
         
         switch (lvl)
         {
             case 1:
-                PlayerAbilities.instance.canAttack = false;
-                PlayerMovement.instance.canMove = false;
-                inputField.text = "";
-                string characters = "0123456789";
-                for (int i = 0; i < 5; i++)
-                {
-                    char randomChar = characters[UnityEngine.Random.Range(0, characters.Length)];
-                    Code += randomChar;
-                }
-                menuPanel.SetActive(true);
-                inputField.Select();
-                inputField.ActivateInputField();
-                headlineText.text = "Type this code: " + Code;
+                //PlayerAbilities.instance.canAttack = false;
+                //PlayerMovement.instance.canMove = false;
+                //inputField.text = "";
+                //string characters = "0123456789";
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    char randomChar = characters[UnityEngine.Random.Range(0, characters.Length)];
+                //    Code += randomChar;
+                //}
+                //menuPanel.SetActive(true);
+                //inputField.Select();
+                //inputField.ActivateInputField();
+                //headlineText.text = "Type this code: " + Code;
+                Debug.Log("1");
+                Destroy(currentTarget);
                 break;
 
             case 2:
-                MinigameLvl2();
+                //PlayerAbilities.instance.canAttack = false;
+                //PlayerMovement.instance.canMove = false;
+                //inputField.text = "";
+                //string PurePainAndAgoni = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    char randomChar = PurePainAndAgoni[UnityEngine.Random.Range(0, PurePainAndAgoni.Length)];
+                //    Code += randomChar;
+                //}
+                //menuPanel.SetActive(true);
+                //inputField.Select();
+                //inputField.ActivateInputField();
+                //headlineText.text = "Type this code: " + Code;
+                Debug.Log("2");
+                Destroy(currentTarget);
                 break;
 
             case 3:
-                MinigameLvl3();
+                //PlayerAbilities.instance.canAttack = false;
+                //PlayerMovement.instance.canMove = false;
+                //inputField.text = "";
+                //string RapeAndGrape = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                //for (int i = 0; i < 50; i++)
+                //{
+                //    char randomChar = RapeAndGrape[UnityEngine.Random.Range(0, RapeAndGrape.Length)];
+                //    Code += randomChar;
+                //}
+                //menuPanel.SetActive(true);
+                //inputField.Select();
+                //inputField.ActivateInputField();
+                //headlineText.text = "Type this code: " + Code;
+                Debug.Log("3");
+                Destroy(currentTarget);
                 break;
         }
     }
 
  
 
-    private void MinigameLvl2()
-    {
-
-    }
-
-    private void MinigameLvl3()
-    {
-
-    }
     public void MinigameStop()
     {
         menuPanel.SetActive(false);

@@ -1,32 +1,60 @@
-using Unity.Hierarchy;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 
 public class NPC : MonoBehaviour
 {
+    [SerializeField] private float moveSpeed = 5f;
+    public float sightRange = 3f;
 
-    LayerMask layerMask;
-    public float SightRange;
+    private Rigidbody2D rb;
+    private float npcDirection = 1f;
+    private LayerMask layerMask;
+    public Transform hackableSquare;
+
     void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         layerMask = LayerMask.GetMask("Wall", "Player");
     }
 
     void FixedUpdate()
     {
+        Vector2 rayDirection = new Vector2(npcDirection, 0f);
+        Vector2 rayPos = (Vector2)transform.position + rayDirection * 0.2f;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(new Vector3(1, 0, 0)), SightRange, layerMask);
-        if (hit)
+       
+        RaycastHit2D hit = Physics2D.Raycast(rayPos, rayDirection, sightRange, layerMask);
+
+        if (hit.collider != null)
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(1, 0, 0)) * hit.distance, Color.green);
-            Debug.Log("Did Hit");
+            Debug.DrawRay(rayPos, rayDirection * hit.distance, Color.green);
+            if (hit.collider.CompareTag("Player"))
+            {
+                Destroy(hit.collider.gameObject);
+            }
+            Flip();
         }
         else
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(1, 0, 0)) * SightRange, Color.red);
-
+            Debug.DrawRay(rayPos, rayDirection * sightRange, Color.red);
         }
+
+        rb.linearVelocity = new Vector2(moveSpeed * npcDirection, rb.linearVelocity.y);
+    }
+
+    void Flip()
+    {
+        npcDirection *= -1f;
+
         
+        Vector3 scale = transform.localScale;
+        scale.x *= -1f;
+        transform.localScale = scale;
+
+        if (hackableSquare != null)
+        {
+            Vector3 pos = hackableSquare.localPosition;
+            pos.x *= -1f;
+            hackableSquare.localPosition = pos;
+        }
     }
 }

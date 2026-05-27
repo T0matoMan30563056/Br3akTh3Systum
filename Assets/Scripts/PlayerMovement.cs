@@ -1,6 +1,7 @@
 using UnityEngine;
 
 
+
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
+        canMove = true;
 
         if (instance == null)
         {
@@ -34,11 +36,21 @@ public class PlayerMovement : MonoBehaviour
                 StartDirection = DirectionalValue;
             }
         }
+        else
+        {
+            
+        }
     }
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
+        if (canMove == true)
+        {
+            rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
+        } else
+        {
+            rb.linearVelocity = new Vector2(0, 0);
+        }
     }
 
 
